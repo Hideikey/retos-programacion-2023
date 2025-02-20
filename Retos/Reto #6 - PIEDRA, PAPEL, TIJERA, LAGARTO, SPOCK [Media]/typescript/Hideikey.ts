@@ -15,6 +15,15 @@ enum Opciones {
   "🦎" = 3,
   "🖖" = 4,
 }
+
+const rules = {
+  "🗿": ["🦎", "✂️"],
+  "📄": ["🗿", "🖖"],
+  "✂️": ["📄", "🦎"],
+  "🦎": ["🖖", "📄"],
+  "🖖": ["✂️", "🗿"],
+};
+
 // Funcion pricipal
 function main(values: Array<any>): void {
   let player1Count: number = 0;
@@ -24,28 +33,10 @@ function main(values: Array<any>): void {
     let player1 = values[i];
     let player2 = values[i + 1];
     // console.log(player1, player2, player1 == player2); // debugger
-
-    switch (player1) {
-      case "🗿":
-        if (player2 == "🦎" || player2 == "✂️") player1Count++;
-        else if (player2 == "📄" || player2 == "🖖") player2Count++;
-        break;
-      case "📄":
-        if (player2 == "🗿" || player2 == "🖖") player1Count++;
-        else if (player2 == "✂️" || player2 == "🦎") player2Count++;
-        break;
-      case "✂️":
-        if (player2 == "📄" || player2 == "🦎") player1Count++;
-        else if (player2 == "🖖" || player2 == "🗿") player2Count++;
-        break;
-      case "🦎":
-        if (player2 == "🖖" || player2 == "📄") player1Count++;
-        else if (player2 == "🗿" || player2 == "✂️") player2Count++;
-        break;
-      case "🖖":
-        if (player2 == "✂️" || player2 == "🗿") player1Count++;
-        else if (player2 == "🦎" || player2 == "📄") player2Count++;
-        break;
+    if (rules[player1].includes(player2)) {
+      player1Count++;
+    } else if (rules[player2].includes(player1)) {
+      player2Count++;
     }
     // console.log(player1Count, player2Count); // debugger
   }
